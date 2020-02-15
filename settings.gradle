@@ -1,0 +1,3 @@
+rootProject.name = 'muggo'
+
+include 'muggo-api'
