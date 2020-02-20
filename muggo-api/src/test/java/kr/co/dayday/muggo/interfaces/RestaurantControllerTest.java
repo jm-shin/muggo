@@ -1,5 +1,7 @@
 package kr.co.dayday.muggo.interfaces;
 
+import kr.co.dayday.muggo.domain.MenuItemRepository;
+import kr.co.dayday.muggo.domain.MenuItemRepositoryImpl;
 import kr.co.dayday.muggo.domain.RestaurantRepository;
 import kr.co.dayday.muggo.domain.RestaurantRepositoryImpl;
 import org.junit.Test;
@@ -25,6 +27,9 @@ public class RestaurantControllerTest {
     @SpyBean(RestaurantRepositoryImpl.class)
     private RestaurantRepository restaurantRepository;
 
+    @SpyBean(MenuItemRepositoryImpl.class)
+    private MenuItemRepository menuItemRepository;
+
     @Test
     public void list() throws Exception{
         mvc.perform(get("/restaurants"))
@@ -40,6 +45,17 @@ public class RestaurantControllerTest {
 
     @Test
     public void detail() throws Exception {
+        mvc.perform(get("/restaurants/1004"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(
+                        containsString("\"id\":1004")
+                ))
+                .andExpect(content().string(
+                        containsString("\"name\":\"Bob zip\"")
+                )).andExpect(content().string(
+                containsString("Kimchi")
+        ));
+
         mvc.perform(get("/restaurants/2020"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(
