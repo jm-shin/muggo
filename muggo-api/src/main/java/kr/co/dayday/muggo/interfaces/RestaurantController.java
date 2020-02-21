@@ -1,5 +1,6 @@
 package kr.co.dayday.muggo.interfaces;
 
+import kr.co.dayday.muggo.application.RestaurantService;
 import kr.co.dayday.muggo.domain.MenuItem;
 import kr.co.dayday.muggo.domain.MenuItemRepository;
 import kr.co.dayday.muggo.domain.Restaurant;
@@ -15,25 +16,20 @@ import java.util.List;
 public class RestaurantController {
 
     @Autowired
-    private RestaurantRepository restaurantRepository;
+    private RestaurantService restaurantService;
 
-    @Autowired
-    private MenuItemRepository menuItemRepository;
+
 
     @GetMapping("/restaurants")
     public List<Restaurant> list(){
-        List<Restaurant> restaurants = restaurantRepository.findAll();
+        List<Restaurant> restaurants = restaurantService.getRestaurants();
 
         return restaurants;
     }
 
     @GetMapping("/restaurants/{id}")
     public Restaurant detail(@PathVariable("id") Long id){
-        Restaurant restaurant = restaurantRepository.findById(id);
-
-        List<MenuItem> menuItems = menuItemRepository.findAllByRestaurantId(id);
-        restaurant.setMenuItem(menuItems);
-
+        Restaurant restaurant = restaurantService.getRestaurant(id);
         return restaurant;
     }
 

@@ -1,5 +1,6 @@
 package kr.co.dayday.muggo.interfaces;
 
+import kr.co.dayday.muggo.application.RestaurantService;
 import kr.co.dayday.muggo.domain.MenuItemRepository;
 import kr.co.dayday.muggo.domain.MenuItemRepositoryImpl;
 import kr.co.dayday.muggo.domain.RestaurantRepository;
@@ -23,6 +24,9 @@ public class RestaurantControllerTest {
 
     @Autowired
     private MockMvc mvc;
+
+    @SpyBean(RestaurantService.class)
+    private RestaurantService restaurantService;
 
     @SpyBean(RestaurantRepositoryImpl.class)
     private RestaurantRepository restaurantRepository;
