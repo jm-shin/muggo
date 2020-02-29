@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.core.StringContains.containsString;
@@ -53,7 +54,7 @@ public class RestaurantControllerTest {
     @Test
     public void detail() throws Exception {
         Restaurant restaurant1 = new Restaurant(1004L,"Joker House","Seoul");
-        restaurant1.addMenuItem(new MenuItem("Kimchi"));
+        restaurant1.setMenuItems(Arrays.asList(new MenuItem("Kimchi")));
 
         Restaurant restaurant2 = new Restaurant(2020L, "Cyber Food", "Seoul");
 
