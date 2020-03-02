@@ -99,7 +99,7 @@ public class RestaurantControllerTest {
     }
 
     @Test
-    public void create() throws Exception{
+    public void creatWithVaildData() throws Exception{
         given(restaurantService.addRestaurant(any())).will(invocation -> {
             Restaurant restaurant = invocation.getArgument(0);
             return Restaurant.builder()
@@ -120,13 +120,19 @@ public class RestaurantControllerTest {
     }
 
     @Test
-    public void update() throws Exception {
+    public void creatWithInvaildData() throws Exception{
+        mvc.perform(post("/restaurants")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("\"name\":\"\", \"address\":\"\""))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void updateWithInvaildData() throws Exception {
 
         mvc.perform(patch("/restaurants/1004")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"name\":\"Joker Bar\", \"address\":\"Busan\"}"))
-                .andExpect(status().isOk());
-
-        verify(restaurantService).updateRestaurant(1004L, "Joker Bar", "Busan");
+                .content("{\"name\":\"\", \"address\":\"\"}"))
+                .andExpect(status().isBadRequest());
     }
 }
