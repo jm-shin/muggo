@@ -1,9 +1,6 @@
 package kr.co.dayday.muggo.application;
 
-import kr.co.dayday.muggo.domain.MenuItem;
-import kr.co.dayday.muggo.domain.MenuItemRepository;
-import kr.co.dayday.muggo.domain.Restaurant;
-import kr.co.dayday.muggo.domain.RestaurantRepository;
+import kr.co.dayday.muggo.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +27,8 @@ public class RestaurantService {
     }
 
     public Restaurant getRestaurant(Long id) {
-        Restaurant restaurant = restaurantRepository.findById(id).orElse(null);
+        Restaurant restaurant = restaurantRepository.findById(id)
+                .orElseThrow(() -> new RestaurantNotFoundException(id));
 
         //기본정보+ 메뉴정보
 //        Restaurant restaurant = restaurantRepository.findById(id);

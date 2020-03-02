@@ -3,6 +3,7 @@ package kr.co.dayday.muggo.interfaces;
 import kr.co.dayday.muggo.application.RestaurantService;
 import kr.co.dayday.muggo.domain.MenuItem;
 import kr.co.dayday.muggo.domain.Restaurant;
+import kr.co.dayday.muggo.domain.RestaurantNotFoundException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,7 +100,16 @@ public class RestaurantControllerTest {
     }
 
     @Test
-    public void creatWithVaildData() throws Exception{
+    public void detailWithNotExisted() throws Exception {
+        given(restaurantService.getRestaurant(404L)).willThrow(new RestaurantNotFoundException(404L));
+
+        mvc.perform(get("/restaurants/404"))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string("{}"));
+    }
+
+    @Test
+    public void createWithVaildData() throws Exception{
         given(restaurantService.addRestaurant(any())).will(invocation -> {
             Restaurant restaurant = invocation.getArgument(0);
             return Restaurant.builder()
@@ -120,7 +130,7 @@ public class RestaurantControllerTest {
     }
 
     @Test
-    public void creatWithInvaildData() throws Exception{
+    public void createWithInvaildData() throws Exception{
         mvc.perform(post("/restaurants")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("\"name\":\"\", \"address\":\"\""))
