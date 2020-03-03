@@ -121,7 +121,7 @@ public class RestaurantControllerTest {
 
         mvc.perform(post("/restaurants")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("\"name\":\"BeRyong\", \"address\":\"Busan\""))
+                .content("\"name\":\"CyberFood\", \"address\":\"Busan\""))
                 .andExpect(status().isCreated())
                 .andExpect(header().string("location", "/restaurants/1234"))
                 .andExpect(content().string("{}"));
