@@ -17,4 +17,11 @@ public class Review {
     @Id
     @GeneratedValue
     private Long id;
+
+    private String name;
+
+    private Integer score;
+
+    private String description;
+
 }
