@@ -7,11 +7,10 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 
-public class ReviewServiceTest {
+public class ReviewServiceTests {
 
     private ReviewService reviewService;
 
@@ -21,7 +20,7 @@ public class ReviewServiceTest {
     @Before
     public void setUp(){
         MockitoAnnotations.initMocks(this);
-        //reviewService = new ReviewService();
+        reviewService = new ReviewService(reviewRepository);
     }
 
     @Test
