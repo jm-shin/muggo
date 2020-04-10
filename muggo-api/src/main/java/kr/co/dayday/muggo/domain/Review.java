@@ -2,6 +2,7 @@ package kr.co.dayday.muggo.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
@@ -16,6 +17,7 @@ public class Review {
 
     @Id
     @GeneratedValue
+    @Getter
     private Long id;
 
     private String name;
