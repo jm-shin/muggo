@@ -13,7 +13,9 @@ import java.util.Optional;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
 
 public class RestaurantServiceTest {
 
@@ -25,6 +27,9 @@ public class RestaurantServiceTest {
    @Mock
    private MenuItemRepository menuItemRepository;
 
+   @Mock
+   private ReviewRepository reviewRepository;
+
     @Before
     public void setUp(){
         MockitoAnnotations.initMocks(this);
@@ -33,7 +38,7 @@ public class RestaurantServiceTest {
         mockMenuItemRepository();
 
         restaurantService = new RestaurantService(
-                restaurantRepository, menuItemRepository);
+                restaurantRepository, menuItemRepository, reviewRepository);
     }
 
     private void mockMenuItemRepository() {
@@ -63,13 +68,17 @@ public class RestaurantServiceTest {
     @Test
     public void getRestaurants(){
         List<Restaurant> restaurants = restaurantService.getRestaurants();
+
         Restaurant restaurant = restaurants.get(0);
+
         assertThat(restaurant.getId(), is(1004L));
     }
 
     @Test
     public void getRestaurantWithExisted(){
         Restaurant restaurant = restaurantService.getRestaurant(1004L);
+
+        verify(menuItemRepository).findAllByRestaurantId(eq(1004L));
 
         assertThat(restaurant.getId(), is(1004L));
 

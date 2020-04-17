@@ -6,4 +6,5 @@ public interface ReviewRepository extends CrudRepository<Review, Long> {
 
     Review save(Review review);
 
+    void findAllByRestaurantId(long restaurantId);
 }
